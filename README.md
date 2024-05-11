@@ -54,26 +54,13 @@ A API possui os seguintes endpoints:
 
 1. Clone este repositório em sua máquina local.
 2. Instale as dependências usando `npm install`.
-3. Renomeie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente necessárias, como a chave secreta para geração de tokens JWT e as credenciais do banco de dados.
-4. Inicie o servidor localmente usando `npm start`.
-5. Acesse a API em `http://localhost:3000`.
+3. Inicie o servidor localmente usando `npm start`.
+4. Acesse a API em `http://localhost:3000`.
 
 ## Deploy
 
-Esta API foi implantada no [provedor de serviços de nuvem]. Você pode acessá-la em [URL de Implantação]. Certifique-se de usar o token JWT válido ao acessar os endpoints protegidos.
+Esta API foi implantada no Railway. Você pode acessá-la em `https://web-production-03e52.up.railway.app/`. Certifique-se de usar o token JWT válido ao acessar os endpoints protegidos.
 
-## Documentação da API
+## Minha experiência com o projeto
 
-A documentação completa da API está disponível em [URL da Documentação].
-
-## Exemplo de Uso
-
-Aqui está um exemplo de uso da API usando o cURL para autenticar-se e acessar um recurso protegido:
-
-```bash
-# Autenticar-se e obter o token JWT
-TOKEN=$(curl -X POST -H "Content-Type: application/json" -d '{"username": "usuario", "password": "senha"}' http://localhost:3000/api/login | jq -r '.token')
-
-# Acessar um recurso protegido usando o token JWT
-curl -X GET -H "Authorization: Bearer $TOKEN" http://localhost:3000/api/resource
-```
+- Algumas das tecnologias usadas nesse projeto eu nunca havia utilizado, como NestJS, que me interessei bastante, já que ele tem muito em comum com o Django Python, outro framework que uso no meu trabalho hoje. A documentação do NestJS também é extremamente completa e quase não se é necessário procurar por informações pela internet. Outra tecnologia que irei continuar usando é o database Redis, eu já havia utilizado outros mecanismos de cache, mas parece que o Redis se adapta muito bem a conceito. Outras tecnologias do projeto eu já tenho proficiencia e técnica.
