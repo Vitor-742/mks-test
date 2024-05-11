@@ -7,11 +7,11 @@ import { User } from 'src/users/entities/user.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5431,
+      host: 'roundhouse.proxy.rlwy.net',
+      port: 17587,
       username: 'postgres',
-      password: 'postgres',
-      database: 'postgres',
+      password: 'fyWRVYNfXVIaYKMNLIpImcikANzzFmKu',
+      database: 'railway',
       entities: [Movie, User],
       synchronize: true,
     }),
