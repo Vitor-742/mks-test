@@ -1,73 +1,79 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Nest movies API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Projeto desenvolvido por Vitor Campos
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Autenticação
 
-## Description
+Para acessar os endpoints desta API, é necessário autenticar-se. A autenticação é feita usando o método JWT (JSON Web Token). Os endpoints que requerem autenticação possuem um cabeçalho `Authorization` com o valor `Bearer <token>`, onde `<token>` é o token JWT válido.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Endpoint para Autenticação
 
-## Installation
-
-```bash
-$ npm install
+### Cadastre o seu usuário:
+- `POST /users`:
+```json
+  {
+	"email": "meuemail",
+	"password": "minhasenha"
+  }
+```
+- `POST /auth/login`: validando suas credenciais
+```json
+  {
+	"email": "meuemail",
+	"password": "minhasenha"
+  }
 ```
 
-## Running the app
+- Agora seu token poderá ser usado por toda aplicação por 2 minutos, depois será necessário refazer a autenticação
+
+## Endpoints Disponíveis
+
+A API possui os seguintes endpoints:
+
+- `GET /movies`: Retorna todos os filmes do catálogo.
+- `GET /movies/:id`: Retorna o filme refente ao id desejado.
+- `POST /movies/:id`: Cria o filme desejado no catálogo.
+```json
+  {
+    "name": "Vingadores",
+    "releaseYear": "2022",
+    "isGood": "false"
+  }
+```
+- `PATCH /movies/:id`: Atualiza o filme desejado.
+```json
+  {
+    "name": "Vingadores",
+    "releaseYear": "2022",
+    "isGood": "true"
+  }
+```
+- `DELETE /movies/:id`: Remove do catálogo o filme com id correspondente
+
+## Instalação
+
+1. Clone este repositório em sua máquina local.
+2. Instale as dependências usando `npm install`.
+3. Renomeie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente necessárias, como a chave secreta para geração de tokens JWT e as credenciais do banco de dados.
+4. Inicie o servidor localmente usando `npm start`.
+5. Acesse a API em `http://localhost:3000`.
+
+## Deploy
+
+Esta API foi implantada no [provedor de serviços de nuvem]. Você pode acessá-la em [URL de Implantação]. Certifique-se de usar o token JWT válido ao acessar os endpoints protegidos.
+
+## Documentação da API
+
+A documentação completa da API está disponível em [URL da Documentação].
+
+## Exemplo de Uso
+
+Aqui está um exemplo de uso da API usando o cURL para autenticar-se e acessar um recurso protegido:
 
 ```bash
-# development
-$ npm run start
+# Autenticar-se e obter o token JWT
+TOKEN=$(curl -X POST -H "Content-Type: application/json" -d '{"username": "usuario", "password": "senha"}' http://localhost:3000/api/login | jq -r '.token')
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# Acessar um recurso protegido usando o token JWT
+curl -X GET -H "Authorization: Bearer $TOKEN" http://localhost:3000/api/resource
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
