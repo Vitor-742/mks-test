@@ -8,9 +8,15 @@ import { CacheService } from './cache.service';
   imports: [
     CacheModule.register<RedisClientOptions>({
       store: redisStore,
+      password: 'rXwdeQVXalVeEJBugUytUZbPCZBsbAYk', // new property
+      username: 'default', // new property
+      //no_ready_check: true, // new property
       socket: {
-        host: 'localhost',
-        port:  6379,
+        host: 'roundhouse.proxy.rlwy.net',
+        port:  26041,
+        
+        
+        
       },
     }),
   ],
